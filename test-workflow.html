@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Workflow - Purchase Order Creation</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        pre { background: #f5f5f5; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Workflow - Purchase Order Creation</h1>
+    
+    <div class="test-section">
+        <h2>1. Test ManagePurchaseOrdersServlet</h2>
+        <p>Test accessing new purchase order form:</p>
+        <a href="http://localhost:8080/purchase-orders?action=new" target="_blank">
+            ▶️ Test: http://localhost:8080/purchase-orders?action=new
+        </a>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test ProviderProductApiServlet</h2>
+        <p>Test API for provider-specific products:</p>
+        <a href="http://localhost:8080/api/provider-products?action=by-provider&providerId=1" target="_blank">
+            ▶️ Test: http://localhost:8080/api/provider-products?action=by-provider&providerId=1
+        </a>
+        <br><br>
+        <button onclick="testAPI()">🔧 Test API with JavaScript</button>
+        <div id="apiResult"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. Test Complete Workflow</h2>
+        <ol>
+            <li>Open new purchase order form</li>
+            <li>Select a provider</li>
+            <li>Check if products load automatically</li>
+            <li>Add products and submit form</li>
+        </ol>
+        <a href="http://localhost:8080/purchase-orders?action=new" target="_blank">
+            🚀 Start Complete Workflow Test
+        </a>
+    </div>
+
+    <script>
+        async function testAPI() {
+            const resultDiv = document.getElementById('apiResult');
+            resultDiv.innerHTML = '<p>Testing API...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8080/api/provider-products?action=by-provider&providerId=1');
+                console.log('API Response Status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('API Response Data:', data);
+                    
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <h4>✅ API Test Successful!</h4>
+                            <p><strong>Status:</strong> ${response.status}</p>
+                            <p><strong>Content-Type:</strong> ${response.headers.get('content-type')}</p>
+                            <p><strong>Data Count:</strong> ${data.count || 0} products</p>
+                            <h5>Response Data:</h5>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <h4>❌ API Test Failed</h4>
+                            <p><strong>Status:</strong> ${response.status}</p>
+                            <p><strong>Error:</strong> ${errorText}</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <h4>❌ API Test Error</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -36,4 +36,40 @@
         <auth-constraint/>
     </security-constraint>
     
+    <servlet>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <servlet-class>com.warehouse.wms.controller.ForgotPasswordServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ForgotPasswordServlet</servlet-name>
+        <url-pattern>/forgot</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ManageRolesServlet</servlet-name>
+        <servlet-class>com.warehouse.wms.controller.ManageRolesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageRolesServlet</servlet-name>
+        <url-pattern>/roles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ManageProviderProductsServlet</servlet-name>
+        <servlet-class>com.warehouse.wms.controller.ManageProviderProductsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManageProviderProductsServlet</servlet-name>
+        <url-pattern>/provider-products</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ManagePurchaseOrdersServlet</servlet-name>
+        <servlet-class>com.warehouse.wms.controller.ManagePurchaseOrdersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ManagePurchaseOrdersServlet</servlet-name>
+        <url-pattern>/purchase-orders</url-pattern>
+    </servlet-mapping>
+
 </web-app>

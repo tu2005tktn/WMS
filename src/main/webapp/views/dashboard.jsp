@@ -38,6 +38,8 @@
                 • Trạng thái: <span style="color: green; font-weight: bold;">${user.status}</span><br>
                 • Ngày tạo: ${user.createdDate}
             </p>
+        </div>        <div style="margin-top: 30px;">
+            <a href="${pageContext.request.contextPath}/providers" class="btn btn-outline-primary">Quản lý nhà cung cấp</a>
         </div>
 
         <!-- Stats Grid -->
@@ -59,23 +61,37 @@
                 <div class="number">0</div>
                 <div class="label">Đơn hàng hôm nay</div>
             </div>
-            
-            <div class="stat-card">
+              <div class="stat-card">
                 <h3>Nhà cung cấp</h3>
                 <div class="number">0</div>
                 <div class="label">Nhà cung cấp</div>
             </div>
-        </div>
-
-        <!-- Quick Actions -->
+            
+            <div class="stat-card">
+                <h3>Khách hàng</h3>
+                <div class="number">0</div>
+                <div class="label">Khách hàng</div>
+            </div>
+        </div><!-- Quick Actions -->
         <div class="welcome-card" style="margin-top: 30px;">
             <h2>Các chức năng chính</h2>
-            <p>Dưới đây là các chức năng chính của hệ thống mà bạn có thể sử dụng:</p>
-            <ul style="margin-top: 15px; margin-left: 20px; line-height: 1.8;">
-                <li><strong>Quản lý sản phẩm:</strong> Thêm, sửa, xóa thông tin sản phẩm</li>
-                <li><strong>Quản lý kho:</strong> Theo dõi tồn kho, nhập xuất hàng</li>
+            <p>Dưới đây là các chức năng chính của hệ thống mà bạn có thể sử dụng:</p>            <!-- Quick Action Buttons -->            <div style="margin: 20px 0; display: flex; flex-wrap: wrap; gap: 10px;">
+                <a href="${pageContext.request.contextPath}/products" class="btn btn-primary">Quản lý sản phẩm</a>
+                <a href="${pageContext.request.contextPath}/warehouses" class="btn btn-primary">Quản lý kho hàng</a>
+                <a href="${pageContext.request.contextPath}/providers" class="btn btn-primary">Quản lý nhà cung cấp</a>
+                <a href="${pageContext.request.contextPath}/customers" class="btn btn-primary">Quản lý khách hàng</a>
+                <a href="${pageContext.request.contextPath}/purchase-orders" class="btn btn-primary">Quản lý đơn mua hàng</a>
+                <a href="${pageContext.request.contextPath}/sale-conditions" class="btn btn-primary">Quản lý điều kiện bán hàng</a>
+                <a href="${pageContext.request.contextPath}/users" class="btn btn-primary">Quản lý người dùng</a>
+                <a href="${pageContext.request.contextPath}/roles" class="btn btn-primary">Quản lý vai trò</a>
+            </div>            <ul style="margin-top: 15px; margin-left: 20px; line-height: 1.8;">                <li><strong>Quản lý sản phẩm:</strong> Thêm, sửa, xóa thông tin sản phẩm</li>
+                <li><strong>Quản lý kho hàng:</strong> Quản lý thông tin các kho, địa điểm lưu trữ</li>
+                <li><strong>Quản lý tồn kho:</strong> Theo dõi tồn kho, nhập xuất hàng</li>
                 <li><strong>Quản lý đơn hàng:</strong> Xử lý đơn đặt hàng và giao hàng</li>
+                <li><strong>Quản lý đơn mua hàng:</strong> Tạo và theo dõi đơn hàng từ nhà cung cấp</li>
                 <li><strong>Quản lý nhà cung cấp:</strong> Thông tin nhà cung cấp và hợp đồng</li>
+                <li><strong>Quản lý khách hàng:</strong> Thông tin khách hàng và liên lạc</li>
+                <li><strong>Quản lý điều kiện bán hàng:</strong> Tạo và quản lý các điều kiện khuyến mãi, giảm giá</li>
                 <li><strong>Báo cáo:</strong> Thống kê và báo cáo hoạt động kinh doanh</li>
             </ul>
         </div>

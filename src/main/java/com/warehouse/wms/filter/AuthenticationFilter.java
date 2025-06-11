@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/dashboard", "/home", "/profile/*", "/admin/*"})
+@WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/dashboard", "/home", "/profile/*", "/change-password", "/admin/*", "/users", "/suppliers", "/providers", "/products", "/roles", "/sale-conditions", "/warehouses", "/purchase-orders"})
 public class AuthenticationFilter implements Filter {
     
     @Override

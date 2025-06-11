@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API</title>
+</head>
+<body>
+    <h1>Test Provider Products API</h1>
+    
+    <form id="testForm">
+        <label for="providerId">Provider ID:</label>
+        <input type="number" id="providerId" value="1" />
+        <button type="button" onclick="testAPI()">Test API</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        function testAPI() {
+            const providerId = document.getElementById('providerId').value;
+            const url = '/WMS/api/provider-products?action=by-provider&providerId=' + providerId;
+            
+            console.log('Testing API URL:', url);
+            
+            fetch(url)
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    console.log('Response headers:', response.headers);
+                    return response.text();
+                })
+                .then(data => {
+                    console.log('Response data:', data);
+                    document.getElementById('result').innerHTML = '<pre>' + data + '</pre>';
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('result').innerHTML = '<p>Error: ' + error.message + '</p>';
+                });
+        }
+    </script>
+</body>
+</html>

@@ -8,7 +8,7 @@
     <title>Đăng nhập - WMS</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
-<body>
+<body class="auth-page">
     <div class="container">
         <h2>Đăng nhập hệ thống WMS</h2>
         
@@ -46,6 +46,9 @@
         <div class="auth-links">
             <p>Chưa có tài khoản? 
                 <a href="${pageContext.request.contextPath}/register">Đăng ký ngay</a>
+            </p>
+            <p>
+                <a href="${pageContext.request.contextPath}/forgot">Quên mật khẩu?</a>
             </p>
         </div>
     </div>

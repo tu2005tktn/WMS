@@ -22,12 +22,14 @@ GO
 CREATE TABLE dbo.Provider_Master (
     ProviderID     INT            IDENTITY(1,1) PRIMARY KEY,
     ProviderName   NVARCHAR(100)  NOT NULL,
+    Email          NVARCHAR(255)  NULL,
     Address        NVARCHAR(255)  NULL
 );
 
 CREATE TABLE dbo.Customer_Master (
     CustomerID     INT            IDENTITY(1,1) PRIMARY KEY,
     CustomerName   NVARCHAR(100)  NOT NULL,
+    Email          NVARCHAR(255)  NULL,
     Address        NVARCHAR(255)  NULL
 );
 
@@ -124,6 +126,7 @@ CREATE TABLE dbo.PO_Header_Trans (
     Status         NVARCHAR(50)   NULL,
     CreatedBy      NVARCHAR(50)   NULL,
     CreatedDate    DATETIME2      NOT NULL DEFAULT SYSUTCDATETIME(),
+    Notes NVARCHAR(MAX) NULL,
     CONSTRAINT FK_POH_Provider FOREIGN KEY (ProviderID)
         REFERENCES dbo.Provider_Master(ProviderID)
 );
@@ -185,6 +188,7 @@ CREATE TABLE dbo.Sale_Order_Trans (
     Status         NVARCHAR(50)   NULL,
     CreatedBy      NVARCHAR(50)   NULL,
     CreatedDate    DATETIME2      NOT NULL DEFAULT SYSUTCDATETIME(),
+     Notes NVARCHAR(MAX) NULL,
     CONSTRAINT FK_SOT_Customer FOREIGN KEY (CustomerID)
         REFERENCES dbo.Customer_Master(CustomerID)
 );
@@ -252,4 +256,61 @@ FROM (VALUES
 WHERE NOT EXISTS (
     SELECT 1 FROM dbo.Role_Master rm WHERE rm.RoleName = r.RoleName
 );
+GO
+
+--------------------------------------------------------------------------------
+-- 7. ADD NOTES COLUMN TO PURCHASE ORDER TABLE IF IT DOESN'T EXIST
+--------------------------------------------------------------------------------
+-- Add Notes column to PO_Header_Trans if it doesn't exist
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[PO_Header_Trans]') AND name = 'Notes')
+BEGIN
+    ALTER TABLE dbo.PO_Header_Trans ADD Notes NVARCHAR(MAX) NULL;
+END
+GO
+
+--------------------------------------------------------------------------------
+-- 8. SAMPLE DATA FOR TESTING
+--------------------------------------------------------------------------------
+-- Insert sample providers
+INSERT INTO dbo.Provider_Master (ProviderName, Email, Address)
+VALUES 
+    ('Công ty ABC', 'abc@provider.com', '123 Đường ABC, TP.HCM'),
+    ('Nhà cung cấp XYZ', 'xyz@supplier.com', '456 Đường XYZ, Hà Nội'),
+    ('Công ty DEF', 'def@company.com', '789 Đường DEF, Đà Nẵng');
+
+-- Insert sample products
+INSERT INTO dbo.Product_Master (ProductCode, ProductName, SalePrice, Cost, ProductDescription, ProductCategory)
+VALUES 
+    ('SP001', 'Sản phẩm A', 100000, 80000, 'Mô tả sản phẩm A', 'Danh mục 1'),
+    ('SP002', 'Sản phẩm B', 150000, 120000, 'Mô tả sản phẩm B', 'Danh mục 2'),
+    ('SP003', 'Sản phẩm C', 200000, 160000, 'Mô tả sản phẩm C', 'Danh mục 3');
+
+-- Insert sample staff
+INSERT INTO dbo.Purchase_Staff_Master (StaffName, Email, Address)
+VALUES 
+    ('Nguyễn Văn A', 'nvana@company.com', '123 ABC Street'),
+    ('Trần Thị B', 'ttb@company.com', '456 XYZ Street');
+
+-- Insert sample users
+INSERT INTO dbo.Users (PurchaseStaffID, Username, PasswordHash, Status)
+VALUES 
+    (1, 'admin', 'hashed_password_admin', 'ACTIVE'),
+    (2, 'staff', 'hashed_password_staff', 'ACTIVE');
+
+-- Assign roles to users
+INSERT INTO dbo.User_Roles (UserID, RoleID)
+VALUES 
+    (1, 1), -- admin with Admin role
+    (2, 3); -- staff with Purchase Staff role
+
+-- Insert sample provider-product relationships
+INSERT INTO dbo.Provider_Product (ProviderID, ProductID, DeliveryDuration, EstimatedPrice, Policies)
+VALUES 
+    (1, 1, 7, 80000, 'Chính sách giao hàng trong 7 ngày'),
+    (1, 2, 10, 120000, 'Chính sách giao hàng trong 10 ngày'),
+    (2, 2, 5, 115000, 'Chính sách giao hàng trong 5 ngày'),
+    (2, 3, 14, 160000, 'Chính sách giao hàng trong 14 ngày'),
+    (3, 1, 3, 75000, 'Chính sách giao hàng trong 3 ngày'),
+    (3, 3, 7, 155000, 'Chính sách giao hàng trong 7 ngày');
+
 GO

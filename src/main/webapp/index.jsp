@@ -37,6 +37,7 @@
                 <li>Báo cáo và thống kê chi tiết</li>
                 <li>Bảo mật thông tin với mã hóa mật khẩu</li>
             </ul>
+            <a href="${pageContext.request.contextPath}/providers" class="btn btn-outline-primary" style="margin-top: 20px;">Quản lý nhà cung cấp</a>
         </div>
     </div>
     

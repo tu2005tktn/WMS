@@ -13,7 +13,7 @@
         }
     </style>
 </head>
-<body>
+<body class="auth-page">
     <div class="container">
         <h2>Đăng ký tài khoản WMS</h2>
         
