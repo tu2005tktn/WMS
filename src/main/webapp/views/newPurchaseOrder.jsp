@@ -176,12 +176,8 @@
             fetch('${pageContext.request.contextPath}/api/provider-products?action=by-provider&providerId=' + providerId)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.success) {
-                        availableProducts = data.data;
-                        updateProductList();
-                    } else {
-                        console.error('Error loading products:', data.message);
-                    }
+                    availableProducts = data.data || [];
+                    updateProductList();
                 })
                 .catch(error => {
                     console.error('Error:', error);
